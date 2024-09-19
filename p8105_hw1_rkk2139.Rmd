@@ -24,7 +24,7 @@ The **penguins** dataset contains various variables for different penguin specie
 
 The mean flipper length across all penguins is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm.
 
-```{r}
+```{r, warning=FALSE}
 # Scatterplot of flipper_length_mm vs bill_length_mm, colored by species
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
   geom_point() +
@@ -35,7 +35,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)
 ```
   
 
-```{r}
+```{r, warning=FALSE}
 # Export the scatterplot to the project directory
 ggsave("penguins_flipper_vs_bill.png", width = 6, height = 4)
 ```
@@ -44,7 +44,7 @@ ggsave("penguins_flipper_vs_bill.png", width = 6, height = 4)
 
 ```{r}
 # Create a data frame
-df <- data.frame(
+coercion_df <- data.frame(
   numeric_sample = rnorm(10),  # Random sample from a standard Normal distribution
   logical_vector = rnorm(10) > 0,  # Logical vector indicating whether elements are greater than 0
   char_vector = sample(letters, 10),  # Random character vector of length 10
