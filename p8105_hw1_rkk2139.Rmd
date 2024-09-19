@@ -1,35 +1,42 @@
 ---
 title: "p8105_hw1_rkk2139"
 author: "Riya Kalra"
-date: "2024-09-19"
 output: github_document
 ---
+
+<font size="5"><b>Problem 1</b></font>
 
 ```{r setup, include = FALSE}
 library(tidyverse)
 ```
+#Load dataset
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+The **penguins** dataset contains various variables for different penguin species in the Palmer Archipelago. It includes `r nrow(penguins)` rows and `r ncol(penguins)` columns, and important variables include:
 
-The purpose of this file is to present a couple of basic plots using `ggplot`.
+- `species`: species of penguins (Adelie, Chinstrap, Gentoo),
+- `island`: the island where the penguins were observed,
+- `bill_length_mm`: the length of the penguin's bill in millimeters,
+- `bill_depth_mm`: the depth of the penguin's bill in millimeters,
+- `flipper_length_mm`: the length of the penguin's flipper in millimeters, and
+- `body_mass_g`: the body mass of the penguin in grams.
 
-First we create a dataframe containing variables for our plots.
+The mean flipper length across all penguins is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm.
 
-```{r df_create}
-set.seed(1234)
+```{r}
+# Scatterplot of flipper_length_mm vs bill_length_mm, colored by species
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  labs(title = "Flipper Length vs Bill Length by Species",
+       x = "Bill Length (mm)",
+       y = "Flipper Length (mm)") +
+  theme_minimal()
+```
+  
 
-plot_df = tibble(
-  x = rnorm(1000, sd = .5),
-  y = 1 + 2 * x + rnorm(1000)
-)
+```{r}
+# Export the scatterplot to the project directory
+ggsave("penguins_flipper_vs_bill.png", width = 6, height = 4)
 ```
 
-First we show a histogram of the `x` variable.
-
-```{r x_hist}
-ggplot(plot_df, aes(x = x)) + geom_histogram()
-```
-
-Next we show a scatterplot of `y` vs `x`. 
-
-```{r yx_scatter}
-ggplot(plot_df, aes(x = x, y = y)) + geom_point()
-```
