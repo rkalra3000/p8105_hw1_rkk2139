@@ -8,6 +8,7 @@ output: github_document
 
 ```{r setup, include = FALSE}
 library(tidyverse)
+library(dplyr)
 ```
 #Load dataset
 ```{r}
@@ -51,13 +52,13 @@ coercion_df <- data.frame(
   factor_vector = factor(sample(c("Level1", "Level2", "Level3"), 10, replace = TRUE))  # Factor vector with 3 levels
 )
 
-print(df)
+print(coercion_df)
 
 # Try to take the mean of each variable
-mean_numeric <- mean(pull(df, numeric_sample))  # Works, because it's numeric
-mean_logical <- mean(pull(df, logical_vector))  # Works, logical values are treated as 0 (FALSE) or 1 (TRUE)
-mean_char <- mean(pull(df, char_vector))  # Doesn't work, you can't take the mean of characters
-mean_factor <- mean(pull(df, factor_vector))  # Doesn't work, factors are not numeric
+mean_numeric <- mean(pull(coercion_df, numeric_sample))  # Works, because it's numeric
+mean_logical <- mean(pull(coercion_df, logical_vector))  # Works, logical values are treated as 0 (FALSE) or 1 (TRUE)
+mean_char <- mean(pull(coercion_df, char_vector))  # Doesn't work, you can't take the mean of characters
+mean_factor <- mean(pull(coercion_df, factor_vector))  # Doesn't work, factors are not numeric
 
 mean_numeric  # Should work
 mean_logical  # Should work (will be a proportion of TRUEs)
@@ -65,9 +66,9 @@ mean_char     # Will throw an error
 mean_factor   # Will throw an error
 
 # Convert variables to numeric types
-numeric_logical <- as.numeric(df$logical_vector)  # Converts TRUE to 1, FALSE to 0
-numeric_char <- as.numeric(df$char_vector)  # Will result in an error, cannot convert characters to numeric
-numeric_factor <- as.numeric(df$factor_vector)  # Converts factors to their underlying integer codes
+numeric_logical <- as.numeric(coercion_df$logical_vector)  # Converts TRUE to 1, FALSE to 0
+numeric_char <- as.numeric(coercion_df$char_vector)  # Will result in an error, cannot convert characters to numeric
+numeric_factor <- as.numeric(coercion_df$factor_vector)  # Converts factors to their underlying integer codes
 
 print(numeric_logical)
 print(numeric_factor)
